@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { ChevronDown, Heart, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Section = ({ title, icon: Icon, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="mb-6 border border-gray-200 rounded-lg overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md bg-white">
+    <motion.div
+      className="mb-6 border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md bg-white"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <button
         className="w-full text-left p-5 bg-gradient-to-r from-indigo-50 to-blue-50 hover:from-indigo-100 hover:to-blue-100 transition-colors flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
         onClick={() => setIsOpen(!isOpen)}
@@ -14,12 +20,26 @@ const Section = ({ title, icon: Icon, children }) => {
           <Icon className="w-6 h-6 mr-3 text-indigo-600" />
           {title}
         </span>
-        <ChevronDown className={`w-5 h-5 text-gray-500 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <ChevronDown className="w-5 h-5 text-gray-500" />
+        </motion.div>
       </button>
-      <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[2000px]' : 'max-h-0'}`}>
-        <div className="p-5 border-t border-gray-100">{children}</div>
-      </div>
-    </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="p-5 border-t border-gray-100">{children}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
@@ -27,11 +47,17 @@ const InteractiveDiagram = () => {
   const [highlight, setHighlight] = useState(null);
 
   return (
-    <div className="mt-6 p-6 bg-gray-50 rounded-lg shadow-inner">
+    <motion.div
+      className="mt-6 p-6 bg-gray-50 rounded-lg shadow-inner"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <h3 className="font-semibold mb-4 text-lg text-gray-800">Interactive ACE Inhibitor Mechanism:</h3>
       <div className="flex items-center justify-center space-x-8 relative">
-        <div 
-          className={`text-center transition-all duration-300 ${highlight === 'angiotensin1' ? 'scale-110' : ''}`}
+        <motion.div 
+          className="text-center"
+          whileHover={{ scale: 1.1 }}
           onMouseEnter={() => setHighlight('angiotensin1')}
           onMouseLeave={() => setHighlight(null)}
         >
@@ -39,9 +65,10 @@ const InteractiveDiagram = () => {
             <span className="font-semibold text-blue-800">Angiotensin I</span>
           </div>
           <p className="text-sm text-gray-600">Inactive</p>
-        </div>
-        <div 
-          className={`relative transition-all duration-300 ${highlight === 'ace' ? 'scale-110' : ''}`}
+        </motion.div>
+        <motion.div 
+          className="relative"
+          whileHover={{ scale: 1.1 }}
           onMouseEnter={() => setHighlight('ace')}
           onMouseLeave={() => setHighlight(null)}
         >
@@ -49,9 +76,10 @@ const InteractiveDiagram = () => {
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-3 py-1 rounded-full text-sm border-2 border-red-500 font-semibold text-red-700">
             ACE
           </div>
-        </div>
-        <div 
-          className={`text-center transition-all duration-300 ${highlight === 'angiotensin2' ? 'scale-110' : ''}`}
+        </motion.div>
+        <motion.div 
+          className="text-center"
+          whileHover={{ scale: 1.1 }}
           onMouseEnter={() => setHighlight('angiotensin2')}
           onMouseLeave={() => setHighlight(null)}
         >
@@ -59,15 +87,20 @@ const InteractiveDiagram = () => {
             <span className="font-semibold text-red-800">Angiotensin II</span>
           </div>
           <p className="text-sm text-gray-600">Active</p>
-        </div>
+        </motion.div>
       </div>
-      <p className="mt-6 text-center text-sm font-medium text-indigo-600">
+      <motion.p
+        className="mt-6 text-center text-sm font-medium text-indigo-600"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+      >
         {highlight === 'angiotensin1' && "Angiotensin I is the inactive precursor."}
         {highlight === 'ace' && "ACE Inhibitors block this conversion enzyme."}
         {highlight === 'angiotensin2' && "Angiotensin II causes vasoconstriction and aldosterone release."}
         {!highlight && "Hover over elements to learn more."}
-      </p>
-    </div>
+      </motion.p>
+    </motion.div>
   );
 };
 
