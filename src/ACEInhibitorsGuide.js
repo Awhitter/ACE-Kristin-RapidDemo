@@ -261,11 +261,11 @@ const ACEInhibitorsGuide = () => {
         transition={{ duration: 0.8, delay: 0.2 }}
       >
         <h1 className="text-6xl font-extrabold mb-4 text-center">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-cyan-600">
             ACE Inhibitors: FNP Exam Prep Guide
           </span>
         </h1>
-        <p className="text-xl text-center text-gray-600 mb-16">Master the essentials for your FNP ANCC Nurse Practitioner Licensing Exam</p>
+        <p className="text-2xl text-center text-gray-700 mb-16 font-light">Master the essentials for your FNP ANCC Nurse Practitioner Licensing Exam</p>
       </motion.div>
 
       <div className="mb-8 bg-white rounded-lg p-4 shadow-md">
@@ -301,16 +301,19 @@ const ACEInhibitorsGuide = () => {
       <Section 
         title="Common ACE Inhibitors" 
         icon={Droplet}
-        keyTakeaway="Remember key drugs: Lisinopril, Enalapril, Ramipril, Captopril, Benazepril"
+        keyTakeaway="Remember the mnemonic 'LERCA-B' for key drugs: Lisinopril, Enalapril, Ramipril, Captopril, Benazepril. All ACE inhibitors end with '-pril'."
         onComplete={updateCompletedSections}
       >
-        <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key ACE Inhibitors to remember for the FNP exam:</p>
+        <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key ACE Inhibitors to remember for the FNP exam (LERCA-B):</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {drugs.map((drug) => (
             <motion.div
               key={drug.name}
               className={`p-6 rounded-2xl transition-all duration-300 ${drug.color} border-2 shadow-xl hover:shadow-2xl`}
               whileHover={{ scale: 1.03 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <button
                 className="w-full text-left focus:outline-none"
