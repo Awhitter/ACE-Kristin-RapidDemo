@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, Heart, PlusCircle, MinusCircle, Activity } from 'lucide-react';
+import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, Heart, PlusCircle, MinusCircle, Activity, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Section = ({ title, icon: Icon, children }) => {
+const Section = ({ title, icon: Icon, children, keyTakeaway }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -37,6 +37,20 @@ const Section = ({ title, icon: Icon, children }) => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
+            {keyTakeaway && (
+              <motion.div
+                className="p-4 bg-yellow-100 border-l-4 border-yellow-500"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="flex items-center">
+                  <Star className="w-5 h-5 text-yellow-600 mr-2" />
+                  <span className="font-semibold text-yellow-800">Key Takeaway:</span>
+                </div>
+                <p className="mt-1 text-yellow-900">{keyTakeaway}</p>
+              </motion.div>
+            )}
             <div className="p-8 bg-gradient-to-b from-white to-blue-50">{children}</div>
           </motion.div>
         )}
@@ -185,7 +199,11 @@ const ACEInhibitorsGuide = () => {
         </span>
       </h1>
 
-      <Section title="Mechanism of Action" icon={Zap}>
+      <Section 
+        title="Mechanism of Action" 
+        icon={Zap}
+        keyTakeaway="ACE Inhibitors end in '-pril' and work by blocking the conversion of Angiotensin I to II"
+      >
         <p className="mb-6 text-gray-700 leading-relaxed text-lg">ACE Inhibitors work by blocking the conversion of Angiotensin I to Angiotensin II in the renin-angiotensin-aldosterone system (RAAS). This leads to several beneficial effects:</p>
         <ul className="list-disc pl-8 space-y-3 mb-8 text-gray-700 text-lg">
           <li>Decreased vasoconstriction</li>
@@ -197,7 +215,11 @@ const ACEInhibitorsGuide = () => {
         <InteractiveDiagram />
       </Section>
 
-      <Section title="Common ACE Inhibitors" icon={Droplet}>
+      <Section 
+        title="Common ACE Inhibitors" 
+        icon={Droplet}
+        keyTakeaway="Remember key drugs: Lisinopril, Enalapril, Ramipril, Captopril, Benazepril"
+      >
         <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key ACE Inhibitors to remember for the FNP exam:</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {drugs.map((drug) => (
@@ -237,7 +259,11 @@ const ACEInhibitorsGuide = () => {
         </div>
       </Section>
 
-      <Section title="Clinical Indications" icon={Stethoscope}>
+      <Section 
+        title="Clinical Indications" 
+        icon={Stethoscope}
+        keyTakeaway="First-line for hypertension, heart failure with reduced EF, and diabetic nephropathy"
+      >
         <ul className="space-y-6 mb-10">
           {[
             { condition: 'Hypertension', detail: 'First-line treatment, especially in diabetes or CKD', icon: Activity },
@@ -269,7 +295,11 @@ const ACEInhibitorsGuide = () => {
         </motion.div>
       </Section>
 
-      <Section title="Side Effects and Monitoring" icon={AlertTriangle}>
+      <Section 
+        title="Side Effects and Monitoring" 
+        icon={AlertTriangle}
+        keyTakeaway="Key side effects: dry cough, hyperkalemia, acute kidney injury, angioedema. Monitor renal function, potassium, and blood pressure regularly."
+      >
         <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key side effects and monitoring parameters for ACE Inhibitors:</p>
         <ul className="space-y-6 mb-10">
           {[
@@ -300,7 +330,11 @@ const ACEInhibitorsGuide = () => {
         </motion.div>
       </Section>
 
-      <Section title="Evidence-Based Practice" icon={BookOpen}>
+      <Section 
+        title="Evidence-Based Practice" 
+        icon={BookOpen}
+        keyTakeaway="Provide cardiovascular and renal protection beyond blood pressure lowering. Contraindicated in pregnancy and bilateral renal artery stenosis."
+      >
         <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key clinical trials and guidelines:</p>
         <ul className="space-y-6 mb-10">
           {[
@@ -342,35 +376,7 @@ const ACEInhibitorsGuide = () => {
         </motion.div>
       </Section>
 
-      <motion.div 
-        className="mt-16 p-10 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl border-2 border-blue-300 shadow-2xl"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-      >
-        <h2 className="text-3xl font-bold mb-8 text-blue-800">Key Takeaways for FNP Exam</h2>
-        <ul className="space-y-6">
-          {[
-            { icon: Droplet, text: 'ACE Inhibitors end in "-pril" and work by blocking the conversion of Angiotensin I to II' },
-            { icon: Heart, text: 'First-line for hypertension, heart failure with reduced EF, and diabetic nephropathy' },
-            { icon: AlertTriangle, text: 'Key side effects: dry cough, hyperkalemia, acute kidney injury, angioedema' },
-            { icon: Stethoscope, text: 'Monitor renal function, potassium, and blood pressure regularly' },
-            { icon: BookOpen, text: 'Contraindicated in pregnancy and bilateral renal artery stenosis' },
-            { icon: Zap, text: 'Provide cardiovascular and renal protection beyond blood pressure lowering' }
-          ].map(({ icon: Icon, text }, index) => (
-            <motion.li 
-              key={index} 
-              className="flex items-start space-x-6 text-gray-800 text-xl"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Icon className="w-8 h-8 text-blue-500 mt-1 flex-shrink-0" />
-              <span>{text}</span>
-            </motion.li>
-          ))}
-        </ul>
-      </motion.div>
+      {/* Key Takeaways section removed as it's now integrated into each section */}
     </div>
   );
 };
