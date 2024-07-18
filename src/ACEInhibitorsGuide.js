@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, PlusCircle, MinusCircle, Activity, Star, ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import PropTypes from 'prop-types';
 
 const Section = ({ title, icon: Icon, children, keyTakeaway, onComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,8 @@ const Section = ({ title, icon: Icon, children, keyTakeaway, onComplete }) => {
       onComplete();
     }
   }, [inView, onComplete]);
+
+  const toggleOpen = useCallback(() => setIsOpen(prev => !prev), []);
 
   return (
     <motion.div
@@ -69,6 +72,14 @@ const Section = ({ title, icon: Icon, children, keyTakeaway, onComplete }) => {
       </AnimatePresence>
     </motion.div>
   );
+};
+
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+  icon: PropTypes.elementType.isRequired,
+  children: PropTypes.node.isRequired,
+  keyTakeaway: PropTypes.string,
+  onComplete: PropTypes.func.isRequired
 };
 
 const InteractiveDiagram = () => {
@@ -202,6 +213,14 @@ const ACEInhibitorsGuide = () => {
     // Simulate loading time
     const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
+  }, []);
+
+  const updateCompletedSections = useCallback(() => {
+    setCompletedSections(prev => Math.min(prev + 1, totalSections));
+  }, []);
+
+  const toggleExpandedDrug = useCallback((drugName) => {
+    setExpandedDrug(prev => prev === drugName ? null : drugName);
   }, []);
 
   if (isLoading) {
