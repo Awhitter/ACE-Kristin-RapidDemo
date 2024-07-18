@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, Heart, PlusCircle, MinusCircle, Activity, Star, ArrowUp } from 'lucide-react';
+import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, PlusCircle, MinusCircle, Activity, Star, ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
@@ -73,13 +73,6 @@ const Section = ({ title, icon: Icon, children, keyTakeaway, onComplete }) => {
 
 const InteractiveDiagram = () => {
   const [highlight, setHighlight] = useState(null);
-
-  const diagramSteps = [
-    { name: 'renin', label: 'Renin', color: 'bg-blue-100' },
-    { name: 'angiotensinogen', label: 'Angiotensinogen', color: 'bg-blue-200' },
-    { name: 'angiotensin1', label: 'Angiotensin I', color: 'bg-blue-300' },
-    { name: 'angiotensin2', label: 'Angiotensin II', color: 'bg-red-300' },
-  ];
 
   return (
     <motion.div
@@ -306,14 +299,14 @@ const ACEInhibitorsGuide = () => {
       >
         <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key ACE Inhibitors to remember for the FNP exam (LERCA-B):</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-          {drugs.map((drug) => (
+          {drugs.map((drug, index) => (
             <motion.div
               key={drug.name}
               className={`p-6 rounded-2xl transition-all duration-300 ${drug.color} border-2 shadow-xl hover:shadow-2xl`}
-              whileHover={{ scale: 1.03 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{scale: 1.03}}
+              initial={{opacity: 0, y: 20}}
+              animate={{opacity: 1, y: 0}}
+              transition={{duration: 0.5, delay: index * 0.1}}
             >
               <button
                 className="w-full text-left focus:outline-none"
@@ -355,7 +348,7 @@ const ACEInhibitorsGuide = () => {
         <ul className="space-y-6 mb-10">
           {[
             { condition: 'Hypertension', detail: 'First-line treatment, especially in diabetes or CKD', icon: Activity },
-            { condition: 'Heart Failure', detail: 'Reduces mortality and hospitalizations in HFrEF', icon: Heart },
+            { condition: 'Heart Failure', detail: 'Reduces mortality and hospitalizations in HFrEF', icon: Activity },
             { condition: 'Diabetic Nephropathy', detail: 'Slows progression of kidney disease', icon: Droplet },
             { condition: 'Post-Myocardial Infarction', detail: 'Improves survival and ventricular remodeling', icon: Zap },
           ].map(({ condition, detail, icon: Icon }, index) => (
