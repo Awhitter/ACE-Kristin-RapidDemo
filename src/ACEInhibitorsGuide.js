@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
-import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, Heart, PlusCircle, MinusCircle, Activity, Star } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, Heart, PlusCircle, MinusCircle, Activity, Star, ArrowUp } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
-const Section = ({ title, icon: Icon, children, keyTakeaway }) => {
+const Section = ({ title, icon: Icon, children, keyTakeaway, onComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [ref, inView] = useInView({
+    threshold: 0.5,
+    triggerOnce: true
+  });
+
+  useEffect(() => {
+    if (inView) {
+      onComplete();
+    }
+  }, [inView, onComplete]);
 
   return (
     <motion.div
+      ref={ref}
       className="mb-8 rounded-2xl overflow-hidden shadow-xl bg-white"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -61,6 +73,13 @@ const Section = ({ title, icon: Icon, children, keyTakeaway }) => {
 
 const InteractiveDiagram = () => {
   const [highlight, setHighlight] = useState(null);
+
+  const diagramSteps = [
+    { name: 'renin', label: 'Renin', color: 'bg-blue-100' },
+    { name: 'angiotensinogen', label: 'Angiotensinogen', color: 'bg-blue-200' },
+    { name: 'angiotensin1', label: 'Angiotensin I', color: 'bg-blue-300' },
+    { name: 'angiotensin2', label: 'Angiotensin II', color: 'bg-red-300' },
+  ];
 
   return (
     <motion.div
@@ -145,8 +164,44 @@ const InteractiveDiagram = () => {
   );
 };
 
+const FloatingActionButton = () => {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <>
+      <motion.div
+        className="fixed bottom-8 right-8 z-50"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+      >
+        <button
+          onClick={scrollToTop}
+          className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-colors duration-300"
+        >
+          <ArrowUp size={24} />
+        </button>
+      </motion.div>
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-50"
+        style={{ scaleX }}
+      />
+    </>
+  );
+};
+
 const ACEInhibitorsGuide = () => {
   const [expandedDrug, setExpandedDrug] = useState(null);
+  const [completedSections, setCompletedSections] = useState(0);
 
   const drugs = [
     { 
@@ -191,18 +246,46 @@ const ACEInhibitorsGuide = () => {
     }
   ];
 
+  const totalSections = 4;
+
+  const updateCompletedSections = () => {
+    setCompletedSections(prev => Math.min(prev + 1, totalSections));
+  };
+
   return (
     <div className="max-w-7xl mx-auto p-8 bg-gradient-to-br from-gray-50 to-blue-100 min-h-screen text-gray-800">
-      <h1 className="text-6xl font-extrabold mb-16 text-center">
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
-          ACE Inhibitors: FNP Exam Prep Guide
-        </span>
-      </h1>
+      <FloatingActionButton />
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        <h1 className="text-6xl font-extrabold mb-4 text-center">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+            ACE Inhibitors: FNP Exam Prep Guide
+          </span>
+        </h1>
+        <p className="text-xl text-center text-gray-600 mb-16">Master the essentials for your FNP ANCC Nurse Practitioner Licensing Exam</p>
+      </motion.div>
+
+      <div className="mb-8 bg-white rounded-lg p-4 shadow-md">
+        <h2 className="text-2xl font-bold mb-2 text-blue-800">Your Progress</h2>
+        <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <motion.div
+            className="bg-blue-600 h-2.5 rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${(completedSections / totalSections) * 100}%` }}
+            transition={{ duration: 0.5 }}
+          />
+        </div>
+        <p className="text-right mt-2 text-gray-600">{completedSections} of {totalSections} sections completed</p>
+      </div>
 
       <Section 
         title="Mechanism of Action" 
         icon={Zap}
         keyTakeaway="ACE Inhibitors end in '-pril' and work by blocking the conversion of Angiotensin I to II"
+        onComplete={updateCompletedSections}
       >
         <p className="mb-6 text-gray-700 leading-relaxed text-lg">ACE Inhibitors work by blocking the conversion of Angiotensin I to Angiotensin II in the renin-angiotensin-aldosterone system (RAAS). This leads to several beneficial effects:</p>
         <ul className="list-disc pl-8 space-y-3 mb-8 text-gray-700 text-lg">
@@ -219,6 +302,7 @@ const ACEInhibitorsGuide = () => {
         title="Common ACE Inhibitors" 
         icon={Droplet}
         keyTakeaway="Remember key drugs: Lisinopril, Enalapril, Ramipril, Captopril, Benazepril"
+        onComplete={updateCompletedSections}
       >
         <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key ACE Inhibitors to remember for the FNP exam:</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
@@ -263,6 +347,7 @@ const ACEInhibitorsGuide = () => {
         title="Clinical Indications" 
         icon={Stethoscope}
         keyTakeaway="First-line for hypertension, heart failure with reduced EF, and diabetic nephropathy"
+        onComplete={updateCompletedSections}
       >
         <ul className="space-y-6 mb-10">
           {[
@@ -299,6 +384,7 @@ const ACEInhibitorsGuide = () => {
         title="Side Effects and Monitoring" 
         icon={AlertTriangle}
         keyTakeaway="Key side effects: dry cough, hyperkalemia, acute kidney injury, angioedema. Monitor renal function, potassium, and blood pressure regularly."
+        onComplete={updateCompletedSections}
       >
         <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key side effects and monitoring parameters for ACE Inhibitors:</p>
         <ul className="space-y-6 mb-10">
