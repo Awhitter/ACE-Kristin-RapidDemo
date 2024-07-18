@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ACE-Kristin-RapidDemo/static/css/main.d944b2bb.css",
+    "main.js": "/ACE-Kristin-RapidDemo/static/js/main.ffd8ef21.js",
+    "static/js/453.0b515713.chunk.js": "/ACE-Kristin-RapidDemo/static/js/453.0b515713.chunk.js",
+    "index.html": "/ACE-Kristin-RapidDemo/index.html",
+    "main.d944b2bb.css.map": "/ACE-Kristin-RapidDemo/static/css/main.d944b2bb.css.map",
+    "main.ffd8ef21.js.map": "/ACE-Kristin-RapidDemo/static/js/main.ffd8ef21.js.map",
+    "453.0b515713.chunk.js.map": "/ACE-Kristin-RapidDemo/static/js/453.0b515713.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d944b2bb.css",
+    "static/js/main.ffd8ef21.js"
+  ]
+}
