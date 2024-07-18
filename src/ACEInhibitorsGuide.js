@@ -7,26 +7,26 @@ const Section = ({ title, icon: Icon, children }) => {
 
   return (
     <motion.div
-      className="mb-8 rounded-xl overflow-hidden shadow-lg bg-white"
+      className="mb-8 rounded-2xl overflow-hidden shadow-xl bg-white"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <motion.button
-        className="w-full text-left p-6 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 transition-colors flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
+        className="w-full text-left p-6 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 transition-colors flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
-        <span className="flex items-center text-xl font-bold text-white">
-          <Icon className="w-7 h-7 mr-4 text-purple-200" />
+        <span className="flex items-center text-2xl font-bold text-white">
+          <Icon className="w-8 h-8 mr-4 text-blue-200" />
           {title}
         </span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
         >
-          <ChevronDown className="w-6 h-6 text-purple-200" />
+          <ChevronDown className="w-7 h-7 text-blue-200" />
         </motion.div>
       </motion.button>
       <AnimatePresence>
@@ -37,7 +37,7 @@ const Section = ({ title, icon: Icon, children }) => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="p-6 bg-gradient-to-b from-white to-purple-50">{children}</div>
+            <div className="p-8 bg-gradient-to-b from-white to-blue-50">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -178,16 +178,16 @@ const ACEInhibitorsGuide = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto p-8 bg-gradient-to-br from-gray-50 to-blue-100 min-h-screen text-gray-800">
-      <h1 className="text-5xl font-extrabold mb-12 text-center">
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+    <div className="max-w-7xl mx-auto p-8 bg-gradient-to-br from-gray-50 to-blue-100 min-h-screen text-gray-800">
+      <h1 className="text-6xl font-extrabold mb-16 text-center">
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
           ACE Inhibitors: FNP Exam Prep Guide
         </span>
       </h1>
 
       <Section title="Mechanism of Action" icon={Zap}>
-        <p className="mb-4 text-gray-700 leading-relaxed">ACE Inhibitors work by blocking the conversion of Angiotensin I to Angiotensin II in the renin-angiotensin-aldosterone system (RAAS). This leads to several beneficial effects:</p>
-        <ul className="list-disc pl-5 space-y-2 mb-6 text-gray-700">
+        <p className="mb-6 text-gray-700 leading-relaxed text-lg">ACE Inhibitors work by blocking the conversion of Angiotensin I to Angiotensin II in the renin-angiotensin-aldosterone system (RAAS). This leads to several beneficial effects:</p>
+        <ul className="list-disc pl-8 space-y-3 mb-8 text-gray-700 text-lg">
           <li>Decreased vasoconstriction</li>
           <li>Reduced aldosterone secretion</li>
           <li>Lowered blood pressure</li>
@@ -198,32 +198,32 @@ const ACEInhibitorsGuide = () => {
       </Section>
 
       <Section title="Common ACE Inhibitors" icon={Droplet}>
-        <p className="mb-8 text-gray-700 leading-relaxed text-lg">Key ACE Inhibitors to remember for the FNP exam:</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key ACE Inhibitors to remember for the FNP exam:</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {drugs.map((drug) => (
             <motion.div
               key={drug.name}
-              className={`p-4 rounded-xl transition-all duration-300 ${drug.color} border-2 shadow-lg hover:shadow-xl`}
-              whileHover={{ scale: 1.02 }}
+              className={`p-6 rounded-2xl transition-all duration-300 ${drug.color} border-2 shadow-xl hover:shadow-2xl`}
+              whileHover={{ scale: 1.03 }}
             >
               <button
                 className="w-full text-left focus:outline-none"
                 onClick={() => setExpandedDrug(expandedDrug === drug.name ? null : drug.name)}
               >
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-xl">{drug.name}</span>
-                  {expandedDrug === drug.name ? <MinusCircle /> : <PlusCircle />}
+                  <span className="font-bold text-2xl">{drug.name}</span>
+                  {expandedDrug === drug.name ? <MinusCircle size={24} /> : <PlusCircle size={24} />}
                 </div>
               </button>
               <AnimatePresence>
                 {expandedDrug === drug.name && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
+                    animate={{ opacity: 1, height: 'auto'}}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="mt-4 space-y-2">
+                    <div className="mt-6 space-y-3 text-lg">
                       <p><strong>Dosage:</strong> {drug.dosage}</p>
                       <p><strong>Half-life:</strong> {drug.halfLife}</p>
                       <p><strong>Renal Excretion:</strong> {drug.renalExcretion}</p>
@@ -238,7 +238,7 @@ const ACEInhibitorsGuide = () => {
       </Section>
 
       <Section title="Clinical Indications" icon={Stethoscope}>
-        <ul className="space-y-4 mb-8">
+        <ul className="space-y-6 mb-10">
           {[
             { condition: 'Hypertension', detail: 'First-line treatment, especially in diabetes or CKD', icon: Activity },
             { condition: 'Heart Failure', detail: 'Reduces mortality and hospitalizations in HFrEF', icon: Heart },
@@ -247,31 +247,31 @@ const ACEInhibitorsGuide = () => {
           ].map(({ condition, detail, icon: Icon }, index) => (
             <motion.li 
               key={index} 
-              className="bg-white p-4 rounded-xl shadow-md flex items-start space-x-4"
+              className="bg-white p-6 rounded-2xl shadow-lg flex items-start space-x-6"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Icon className="w-6 h-6 text-blue-500 mt-1 flex-shrink-0" />
+              <Icon className="w-8 h-8 text-blue-500 mt-1 flex-shrink-0" />
               <div>
-                <span className="font-semibold text-blue-800">{condition}: </span>
-                <span className="text-gray-700">{detail}</span>
+                <span className="font-semibold text-blue-800 text-xl">{condition}: </span>
+                <span className="text-gray-700 text-lg">{detail}</span>
               </div>
             </motion.li>
           ))}
         </ul>
         <motion.div 
-          className="p-6 bg-blue-50 border border-blue-200 rounded-xl shadow-lg"
+          className="p-8 bg-blue-50 border-2 border-blue-200 rounded-2xl shadow-xl"
           whileHover={{ scale: 1.02 }}
         >
-          <h3 className="font-semibold mb-3 text-blue-800 text-xl">Clinical Pearl:</h3>
-          <p className="text-gray-700 leading-relaxed">ACE Inhibitors are particularly beneficial in patients with diabetes and hypertension due to their renoprotective effects, independent of blood pressure lowering. They are also preferred in patients with left ventricular dysfunction or heart failure with reduced ejection fraction (HFrEF).</p>
+          <h3 className="font-semibold mb-4 text-blue-800 text-2xl">Clinical Pearl:</h3>
+          <p className="text-gray-700 leading-relaxed text-lg">ACE Inhibitors are particularly beneficial in patients with diabetes and hypertension due to their renoprotective effects, independent of blood pressure lowering. They are also preferred in patients with left ventricular dysfunction or heart failure with reduced ejection fraction (HFrEF).</p>
         </motion.div>
       </Section>
 
       <Section title="Side Effects and Monitoring" icon={AlertTriangle}>
-        <p className="mb-6 text-gray-700 leading-relaxed text-lg">Key side effects and monitoring parameters for ACE Inhibitors:</p>
-        <ul className="space-y-4 mb-8">
+        <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key side effects and monitoring parameters for ACE Inhibitors:</p>
+        <ul className="space-y-6 mb-10">
           {[
             { effect: 'Dry cough', detail: 'Due to increased bradykinin levels. May require switching to ARB.' },
             { effect: 'Hyperkalemia', detail: 'Monitor potassium levels, especially in renal impairment or with K+ supplements.' },
@@ -281,28 +281,28 @@ const ACEInhibitorsGuide = () => {
           ].map(({ effect, detail }, index) => (
             <motion.li 
               key={index} 
-              className="bg-white p-4 rounded-xl shadow-md border-l-4 border-red-500"
+              className="bg-white p-6 rounded-2xl shadow-lg border-l-8 border-red-500"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <span className="font-semibold text-red-600">{effect}: </span>
-              <span className="text-gray-700">{detail}</span>
+              <span className="font-semibold text-red-600 text-xl">{effect}: </span>
+              <span className="text-gray-700 text-lg">{detail}</span>
             </motion.li>
           ))}
         </ul>
         <motion.div 
-          className="p-6 bg-red-50 border-2 border-red-200 rounded-xl shadow-lg"
+          className="p-8 bg-red-50 border-2 border-red-200 rounded-2xl shadow-xl"
           whileHover={{ scale: 1.02 }}
         >
-          <h3 className="font-semibold mb-3 text-red-800 text-xl">Critical Safety Note:</h3>
-          <p className="text-gray-700 leading-relaxed">ACE Inhibitors are <strong>contraindicated in pregnancy</strong> (all trimesters) due to the risk of fetal renal damage and other congenital abnormalities. They should be discontinued immediately if pregnancy is detected or planned.</p>
+          <h3 className="font-semibold mb-4 text-red-800 text-2xl">Critical Safety Note:</h3>
+          <p className="text-gray-700 leading-relaxed text-lg">ACE Inhibitors are <strong>contraindicated in pregnancy</strong> (all trimesters) due to the risk of fetal renal damage and other congenital abnormalities. They should be discontinued immediately if pregnancy is detected or planned.</p>
         </motion.div>
       </Section>
 
       <Section title="Evidence-Based Practice" icon={BookOpen}>
-        <p className="mb-6 text-gray-700 leading-relaxed text-lg">Key clinical trials and guidelines:</p>
-        <ul className="space-y-4 mb-8">
+        <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key clinical trials and guidelines:</p>
+        <ul className="space-y-6 mb-10">
           {[
             { 
               trial: 'HOPE Trial (2000)', 
@@ -322,34 +322,34 @@ const ACEInhibitorsGuide = () => {
           ].map(({ trial, detail, reference }, index) => (
             <motion.li 
               key={index} 
-              className="bg-white p-4 rounded-xl shadow-md border-l-4 border-green-500"
+              className="bg-white p-6 rounded-2xl shadow-lg border-l-8 border-green-500"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <span className="font-semibold text-green-700">{trial}: </span>
-              <span className="text-gray-700">{detail}</span>
-              <p className="text-sm text-gray-500 mt-1">Reference: {reference}</p>
+              <span className="font-semibold text-green-700 text-xl">{trial}: </span>
+              <span className="text-gray-700 text-lg">{detail}</span>
+              <p className="text-sm text-gray-500 mt-2">Reference: {reference}</p>
             </motion.li>
           ))}
         </ul>
         <motion.div 
-          className="p-6 bg-green-50 border-2 border-green-200 rounded-xl shadow-lg"
+          className="p-8 bg-green-50 border-2 border-green-200 rounded-2xl shadow-xl"
           whileHover={{ scale: 1.02 }}
         >
-          <h3 className="font-semibold mb-3 text-green-800 text-xl">Clinical Practice Tip:</h3>
-          <p className="text-gray-700 leading-relaxed">When initiating ACE inhibitors, start at a low dose and titrate up gradually while monitoring blood pressure, renal function, and potassium levels. In heart failure, aim for target doses used in clinical trials for optimal benefits.</p>
+          <h3 className="font-semibold mb-4 text-green-800 text-2xl">Clinical Practice Tip:</h3>
+          <p className="text-gray-700 leading-relaxed text-lg">When initiating ACE inhibitors, start at a low dose and titrate up gradually while monitoring blood pressure, renal function, and potassium levels. In heart failure, aim for target doses used in clinical trials for optimal benefits.</p>
         </motion.div>
       </Section>
 
       <motion.div 
-        className="mt-12 p-8 bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl border border-blue-300 shadow-xl"
+        className="mt-16 p-10 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl border-2 border-blue-300 shadow-2xl"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        <h2 className="text-2xl font-bold mb-6 text-blue-800">Key Takeaways for FNP Exam</h2>
-        <ul className="space-y-4">
+        <h2 className="text-3xl font-bold mb-8 text-blue-800">Key Takeaways for FNP Exam</h2>
+        <ul className="space-y-6">
           {[
             { icon: Droplet, text: 'ACE Inhibitors end in "-pril" and work by blocking the conversion of Angiotensin I to II' },
             { icon: Heart, text: 'First-line for hypertension, heart failure with reduced EF, and diabetic nephropathy' },
@@ -360,12 +360,12 @@ const ACEInhibitorsGuide = () => {
           ].map(({ icon: Icon, text }, index) => (
             <motion.li 
               key={index} 
-              className="flex items-start space-x-4 text-gray-800 text-lg"
+              className="flex items-start space-x-6 text-gray-800 text-xl"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Icon className="w-6 h-6 text-blue-500 mt-1 flex-shrink-0" />
+              <Icon className="w-8 h-8 text-blue-500 mt-1 flex-shrink-0" />
               <span>{text}</span>
             </motion.li>
           ))}
