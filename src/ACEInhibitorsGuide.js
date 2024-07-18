@@ -206,7 +206,7 @@ const ACEInhibitorsGuide = () => {
   const drugs = [
     { 
       name: 'Lisinopril', 
-      color: 'bg-blue-100 border-blue-500 text-blue-800',
+      color: 'bg-teal-100 border-teal-500 text-teal-800',
       dosage: '10-40 mg daily',
       halfLife: '12 hours',
       renalExcretion: '100%',
@@ -214,7 +214,7 @@ const ACEInhibitorsGuide = () => {
     },
     { 
       name: 'Enalapril', 
-      color: 'bg-green-100 border-green-500 text-green-800',
+      color: 'bg-cyan-100 border-cyan-500 text-cyan-800',
       dosage: '5-40 mg daily (can be divided)',
       halfLife: '11 hours',
       renalExcretion: '88%',
@@ -222,7 +222,7 @@ const ACEInhibitorsGuide = () => {
     },
     { 
       name: 'Ramipril', 
-      color: 'bg-yellow-100 border-yellow-600 text-yellow-800',
+      color: 'bg-sky-100 border-sky-500 text-sky-800',
       dosage: '2.5-20 mg daily',
       halfLife: '13-17 hours',
       renalExcretion: '60%',
@@ -230,7 +230,7 @@ const ACEInhibitorsGuide = () => {
     },
     { 
       name: 'Captopril', 
-      color: 'bg-red-100 border-red-500 text-red-800',
+      color: 'bg-blue-100 border-blue-500 text-blue-800',
       dosage: '25-150 mg daily (divided doses)',
       halfLife: '2 hours',
       renalExcretion: '95%',
@@ -238,7 +238,7 @@ const ACEInhibitorsGuide = () => {
     },
     { 
       name: 'Benazepril',
-      color: 'bg-purple-100 border-purple-500 text-purple-800',
+      color: 'bg-indigo-100 border-indigo-500 text-indigo-800',
       dosage: '10-40 mg daily',
       halfLife: '10-11 hours',
       renalExcretion: '88%',
