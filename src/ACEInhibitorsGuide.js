@@ -218,17 +218,23 @@ const ACEInhibitorsGuide = () => {
         <h2 className="text-xl font-semibold mb-4 text-indigo-800">Key Takeaways</h2>
         <ul className="space-y-3">
           {[
-            'ACE Inhibitors end in "-pril"',
-            'Block conversion of Angiotensin I to II in RAAS',
-            'First-line for hypertension, heart failure, and diabetic nephropathy',
-            'Remember "CHAMP" for side effects',
-            'Contraindicated in pregnancy',
-            'Monitor renal function and potassium levels'
-          ].map((item, index) => (
-            <li key={index} className="flex items-center text-indigo-700">
-              <Zap className="w-5 h-5 mr-3 text-indigo-500" />
-              {item}
-            </li>
+            { icon: Heart, text: 'ACE Inhibitors end in "-pril"' },
+            { icon: Zap, text: 'Block conversion of Angiotensin I to II in RAAS' },
+            { icon: Stethoscope, text: 'First-line for hypertension, heart failure, and diabetic nephropathy' },
+            { icon: AlertTriangle, text: 'Remember "CHAMP" for side effects' },
+            { icon: Droplet, text: 'Contraindicated in pregnancy' },
+            { icon: BookOpen, text: 'Monitor renal function and potassium levels' }
+          ].map(({ icon: Icon, text }, index) => (
+            <motion.li 
+              key={index} 
+              className="flex items-center text-indigo-700"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Icon className="w-5 h-5 mr-3 text-indigo-500" />
+              {text}
+            </motion.li>
           ))}
         </ul>
       </div>
