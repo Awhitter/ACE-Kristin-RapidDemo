@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, Heart } from 'lucide-react';
+import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, Heart, PlusCircle, MinusCircle, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Section = ({ title, icon: Icon, children }) => {
@@ -50,78 +50,138 @@ const InteractiveDiagram = () => {
 
   return (
     <motion.div
-      className="mt-8 p-8 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-xl shadow-lg"
+      className="mt-8 p-8 bg-gradient-to-br from-gray-100 to-blue-100 rounded-xl shadow-lg"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <h3 className="font-bold mb-6 text-2xl text-purple-800">Interactive ACE Inhibitor Mechanism:</h3>
-      <div className="flex items-center justify-center space-x-12 relative">
+      <h3 className="font-bold mb-6 text-2xl text-blue-800">ACE Inhibitor Mechanism of Action:</h3>
+      <div className="flex flex-col items-center space-y-8">
         <motion.div 
-          className="text-center"
-          whileHover={{ scale: 1.1 }}
-          onMouseEnter={() => setHighlight('angiotensin1')}
-          onMouseLeave={() => setHighlight(null)}
+          className="relative w-full max-w-2xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
         >
-          <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-300 to-blue-500 flex items-center justify-center mb-3 shadow-lg">
-            <span className="font-bold text-white text-lg">Angiotensin I</span>
+          <div className="absolute top-1/2 left-0 right-0 h-2 bg-gradient-to-r from-blue-300 via-blue-500 to-red-500 transform -translate-y-1/2"></div>
+          <div className="flex justify-between items-center relative z-10">
+            <motion.div 
+              className="bg-blue-100 p-4 rounded-lg shadow-md"
+              whileHover={{ scale: 1.05 }}
+              onMouseEnter={() => setHighlight('renin')}
+              onMouseLeave={() => setHighlight(null)}
+            >
+              <p className="font-semibold text-blue-800">Renin</p>
+            </motion.div>
+            <motion.div 
+              className="bg-blue-200 p-4 rounded-lg shadow-md"
+              whileHover={{ scale: 1.05 }}
+              onMouseEnter={() => setHighlight('angiotensinogen')}
+              onMouseLeave={() => setHighlight(null)}
+            >
+              <p className="font-semibold text-blue-800">Angiotensinogen</p>
+            </motion.div>
+            <motion.div 
+              className="bg-blue-300 p-4 rounded-lg shadow-md"
+              whileHover={{ scale: 1.05 }}
+              onMouseEnter={() => setHighlight('angiotensin1')}
+              onMouseLeave={() => setHighlight(null)}
+            >
+              <p className="font-semibold text-blue-800">Angiotensin I</p>
+            </motion.div>
+            <motion.div 
+              className="bg-red-300 p-4 rounded-lg shadow-md"
+              whileHover={{ scale: 1.05 }}
+              onMouseEnter={() => setHighlight('angiotensin2')}
+              onMouseLeave={() => setHighlight(null)}
+            >
+              <p className="font-semibold text-red-800">Angiotensin II</p>
+            </motion.div>
           </div>
-          <p className="text-sm font-medium text-blue-800">Inactive</p>
         </motion.div>
         <motion.div 
-          className="relative"
-          whileHover={{ scale: 1.1 }}
+          className="bg-yellow-100 p-4 rounded-lg shadow-md"
+          whileHover={{ scale: 1.05 }}
           onMouseEnter={() => setHighlight('ace')}
           onMouseLeave={() => setHighlight(null)}
         >
-          <div className="w-32 h-2 bg-gradient-to-r from-red-500 to-pink-500 rounded-full shadow-md"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4 py-2 rounded-full text-sm border-2 border-red-500 font-bold text-red-700 shadow-md">
-            ACE
-          </div>
-        </motion.div>
-        <motion.div 
-          className="text-center"
-          whileHover={{ scale: 1.1 }}
-          onMouseEnter={() => setHighlight('angiotensin2')}
-          onMouseLeave={() => setHighlight(null)}
-        >
-          <div className="w-32 h-32 rounded-full bg-gradient-to-br from-red-300 to-red-500 flex items-center justify-center mb-3 shadow-lg">
-            <span className="font-bold text-white text-lg">Angiotensin II</span>
-          </div>
-          <p className="text-sm font-medium text-red-800">Active</p>
+          <p className="font-semibold text-yellow-800">ACE (Angiotensin Converting Enzyme)</p>
         </motion.div>
       </div>
-      <motion.p
-        className="mt-8 text-center text-lg font-medium text-purple-700 bg-white bg-opacity-50 p-4 rounded-lg shadow-inner"
+      <motion.div
+        className="mt-8 p-4 bg-white bg-opacity-75 rounded-lg shadow-inner"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        {highlight === 'angiotensin1' && "Angiotensin I is the inactive precursor."}
-        {highlight === 'ace' && "ACE Inhibitors block this conversion enzyme."}
-        {highlight === 'angiotensin2' && "Angiotensin II causes vasoconstriction and aldosterone release."}
-        {!highlight && "Hover over elements to learn more."}
-      </motion.p>
+        <h4 className="font-semibold text-lg mb-2 text-gray-800">Key Points:</h4>
+        <ul className="list-disc pl-5 space-y-2 text-gray-700">
+          <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
+            ACE Inhibitors block the conversion of Angiotensin I to Angiotensin II
+          </motion.li>
+          <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
+            This leads to decreased vasoconstriction and reduced aldosterone secretion
+          </motion.li>
+          <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
+            Results in lowered blood pressure and decreased workload on the heart
+          </motion.li>
+        </ul>
+      </motion.div>
     </motion.div>
   );
 };
 
 const ACEInhibitorsGuide = () => {
-  const [highlightedDrug, setHighlightedDrug] = useState(null);
+  const [expandedDrug, setExpandedDrug] = useState(null);
 
   const drugs = [
-    { name: 'Lisinopril', color: 'bg-gradient-to-br from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700' },
-    { name: 'Enalapril', color: 'bg-gradient-to-br from-green-400 to-green-600 hover:from-green-500 hover:to-green-700' },
-    { name: 'Ramipril', color: 'bg-gradient-to-br from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700' },
-    { name: 'Captopril', color: 'bg-gradient-to-br from-red-400 to-red-600 hover:from-red-500 hover:to-red-700' },
-    { name: 'Benazepril', color: 'bg-gradient-to-br from-purple-400 to-purple-600 hover:from-purple-500 hover:to-purple-700' }
+    { 
+      name: 'Lisinopril', 
+      color: 'bg-blue-100 border-blue-500 text-blue-800',
+      dosage: '10-40 mg daily',
+      halfLife: '12 hours',
+      renalExcretion: '100%',
+      notes: 'Long-acting, once-daily dosing. No food interactions.'
+    },
+    { 
+      name: 'Enalapril', 
+      color: 'bg-green-100 border-green-500 text-green-800',
+      dosage: '5-40 mg daily (can be divided)',
+      halfLife: '11 hours',
+      renalExcretion: '88%',
+      notes: 'Prodrug, converted to active form in liver. Can be used in pediatrics.'
+    },
+    { 
+      name: 'Ramipril', 
+      color: 'bg-yellow-100 border-yellow-600 text-yellow-800',
+      dosage: '2.5-20 mg daily',
+      halfLife: '13-17 hours',
+      renalExcretion: '60%',
+      notes: 'High tissue affinity. Used in HOPE trial for cardiovascular risk reduction.'
+    },
+    { 
+      name: 'Captopril', 
+      color: 'bg-red-100 border-red-500 text-red-800',
+      dosage: '25-150 mg daily (divided doses)',
+      halfLife: '2 hours',
+      renalExcretion: '95%',
+      notes: 'Short-acting. Take on empty stomach. Contains sulfhydryl group.'
+    },
+    { 
+      name: 'Benazepril',
+      color: 'bg-purple-100 border-purple-500 text-purple-800',
+      dosage: '10-40 mg daily',
+      halfLife: '10-11 hours',
+      renalExcretion: '88%',
+      notes: 'Prodrug. High lipophilicity, good tissue penetration.'
+    }
   ];
 
   return (
-    <div className="max-w-6xl mx-auto p-8 bg-gradient-to-br from-gray-900 to-purple-900 min-h-screen text-white">
+    <div className="max-w-6xl mx-auto p-8 bg-gradient-to-br from-gray-50 to-blue-100 min-h-screen text-gray-800">
       <h1 className="text-5xl font-extrabold mb-12 text-center">
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-          ACE Inhibitors: Interactive Learning Guide
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+          ACE Inhibitors: FNP Exam Prep Guide
         </span>
       </h1>
 
@@ -138,138 +198,175 @@ const ACEInhibitorsGuide = () => {
       </Section>
 
       <Section title="Common ACE Inhibitors" icon={Droplet}>
-        <p className="mb-8 text-gray-300 leading-relaxed text-lg">Remember the mnemonic "LERCA-B" for common ACE Inhibitors. All ACE inhibitors end with "-pril":</p>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+        <p className="mb-8 text-gray-700 leading-relaxed text-lg">Key ACE Inhibitors to remember for the FNP exam:</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {drugs.map((drug) => (
-            <motion.button
+            <motion.div
               key={drug.name}
-              className={`p-6 rounded-xl transition-all duration-300 ${drug.color} shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50`}
-              onMouseEnter={() => setHighlightedDrug(drug.name)}
-              onMouseLeave={() => setHighlightedDrug(null)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className={`p-4 rounded-xl transition-all duration-300 ${drug.color} border-2 shadow-lg hover:shadow-xl`}
+              whileHover={{ scale: 1.02 }}
             >
-              <span className="font-bold text-white text-xl">{drug.name}</span>
-            </motion.button>
+              <button
+                className="w-full text-left focus:outline-none"
+                onClick={() => setExpandedDrug(expandedDrug === drug.name ? null : drug.name)}
+              >
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-xl">{drug.name}</span>
+                  {expandedDrug === drug.name ? <MinusCircle /> : <PlusCircle />}
+                </div>
+              </button>
+              <AnimatePresence>
+                {expandedDrug === drug.name && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="mt-4 space-y-2">
+                      <p><strong>Dosage:</strong> {drug.dosage}</p>
+                      <p><strong>Half-life:</strong> {drug.halfLife}</p>
+                      <p><strong>Renal Excretion:</strong> {drug.renalExcretion}</p>
+                      <p><strong>Key Notes:</strong> {drug.notes}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           ))}
         </div>
-        <AnimatePresence>
-          {highlightedDrug && (
-            <motion.p 
-              className="text-center font-semibold text-purple-300 text-xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              {highlightedDrug} is commonly used for hypertension and heart failure.
-            </motion.p>
-          )}
-        </AnimatePresence>
       </Section>
 
       <Section title="Clinical Indications" icon={Stethoscope}>
         <ul className="space-y-4 mb-8">
           {[
-            { condition: 'Hypertension', detail: 'First-line treatment, especially in diabetes or CKD' },
-            { condition: 'Heart Failure', detail: 'Reduces mortality and hospitalizations' },
-            { condition: 'Diabetic Nephropathy', detail: 'Slows progression of kidney disease' },
-            { condition: 'Post-Myocardial Infarction', detail: 'Improves survival and ventricular remodeling' },
-          ].map(({ condition, detail }, index) => (
+            { condition: 'Hypertension', detail: 'First-line treatment, especially in diabetes or CKD', icon: Activity },
+            { condition: 'Heart Failure', detail: 'Reduces mortality and hospitalizations in HFrEF', icon: Heart },
+            { condition: 'Diabetic Nephropathy', detail: 'Slows progression of kidney disease', icon: Droplet },
+            { condition: 'Post-Myocardial Infarction', detail: 'Improves survival and ventricular remodeling', icon: Zap },
+          ].map(({ condition, detail, icon: Icon }, index) => (
             <motion.li 
               key={index} 
-              className="bg-purple-800 bg-opacity-50 p-4 rounded-xl shadow-md"
+              className="bg-white p-4 rounded-xl shadow-md flex items-start space-x-4"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <span className="font-semibold text-purple-300">{condition}: </span>
-              <span className="text-gray-300">{detail}</span>
+              <Icon className="w-6 h-6 text-blue-500 mt-1 flex-shrink-0" />
+              <div>
+                <span className="font-semibold text-blue-800">{condition}: </span>
+                <span className="text-gray-700">{detail}</span>
+              </div>
             </motion.li>
           ))}
         </ul>
         <motion.div 
-          className="p-6 bg-blue-900 bg-opacity-50 rounded-xl shadow-lg"
+          className="p-6 bg-blue-50 border border-blue-200 rounded-xl shadow-lg"
           whileHover={{ scale: 1.02 }}
         >
-          <h3 className="font-semibold mb-3 text-blue-300 text-xl">Clinical Pearl:</h3>
-          <p className="text-blue-100 leading-relaxed">ACE Inhibitors are particularly beneficial in patients with diabetes and hypertension due to their renoprotective effects, independent of blood pressure lowering.</p>
+          <h3 className="font-semibold mb-3 text-blue-800 text-xl">Clinical Pearl:</h3>
+          <p className="text-gray-700 leading-relaxed">ACE Inhibitors are particularly beneficial in patients with diabetes and hypertension due to their renoprotective effects, independent of blood pressure lowering. They are also preferred in patients with left ventricular dysfunction or heart failure with reduced ejection fraction (HFrEF).</p>
         </motion.div>
       </Section>
 
       <Section title="Side Effects and Monitoring" icon={AlertTriangle}>
-        <p className="mb-6 text-gray-300 leading-relaxed text-lg">Remember the mnemonic "CHAMP" for common side effects:</p>
+        <p className="mb-6 text-gray-700 leading-relaxed text-lg">Key side effects and monitoring parameters for ACE Inhibitors:</p>
         <ul className="space-y-4 mb-8">
           {[
-            { effect: 'Cough (dry)', detail: 'Due to increased bradykinin levels' },
-            { effect: 'Hyperkalemia', detail: 'Monitor potassium levels, especially in renal impairment' },
-            { effect: 'Angioedema', detail: 'Rare but potentially serious, requires immediate discontinuation' },
-            { effect: 'Marker of kidney function change', detail: 'Monitor creatinine and eGFR' },
-            { effect: 'Postural hypotension', detail: 'Especially in volume-depleted patients' }
+            { effect: 'Dry cough', detail: 'Due to increased bradykinin levels. May require switching to ARB.' },
+            { effect: 'Hyperkalemia', detail: 'Monitor potassium levels, especially in renal impairment or with K+ supplements.' },
+            { effect: 'Acute kidney injury', detail: 'Monitor creatinine and eGFR. Risk increases with volume depletion.' },
+            { effect: 'Angioedema', detail: 'Rare but potentially serious. Requires immediate discontinuation.' },
+            { effect: 'First-dose hypotension', detail: 'Start at low dose, especially in elderly or volume-depleted patients.' }
           ].map(({ effect, detail }, index) => (
             <motion.li 
               key={index} 
-              className="bg-red-900 bg-opacity-50 p-4 rounded-xl shadow-md"
+              className="bg-white p-4 rounded-xl shadow-md border-l-4 border-red-500"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <span className="font-semibold text-red-300">{effect[0]}</span>
-              <span className="font-semibold text-red-100">{effect.slice(1)}: </span>
-              <span className="text-gray-300">{detail}</span>
+              <span className="font-semibold text-red-600">{effect}: </span>
+              <span className="text-gray-700">{detail}</span>
             </motion.li>
           ))}
         </ul>
         <motion.div 
-          className="p-6 bg-yellow-900 bg-opacity-50 border border-yellow-700 rounded-xl shadow-lg"
+          className="p-6 bg-red-50 border-2 border-red-200 rounded-xl shadow-lg"
           whileHover={{ scale: 1.02 }}
         >
-          <h3 className="font-semibold mb-3 text-yellow-300 text-xl">Important Safety Note:</h3>
-          <p className="text-yellow-100 leading-relaxed">ACE Inhibitors are contraindicated in pregnancy (all trimesters) due to the risk of fetal renal damage and other congenital abnormalities. They should be discontinued as soon as pregnancy is detected.</p>
+          <h3 className="font-semibold mb-3 text-red-800 text-xl">Critical Safety Note:</h3>
+          <p className="text-gray-700 leading-relaxed">ACE Inhibitors are <strong>contraindicated in pregnancy</strong> (all trimesters) due to the risk of fetal renal damage and other congenital abnormalities. They should be discontinued immediately if pregnancy is detected or planned.</p>
         </motion.div>
       </Section>
 
       <Section title="Evidence-Based Practice" icon={BookOpen}>
-        <p className="mb-6 text-gray-300 leading-relaxed text-lg">Key findings from clinical research:</p>
-        <ul className="list-disc pl-8 space-y-4 mb-8 text-gray-300">
-          <li>The HOPE trial showed that ramipril significantly reduced cardiovascular events in high-risk patients.</li>
-          <li>ACE inhibitors have been shown to reduce mortality in heart failure patients with reduced ejection fraction (HFrEF).</li>
-          <li>In the ADVANCE trial, perindopril-indapamide combination significantly reduced major vascular events in type 2 diabetes.</li>
-        </ul>
-        <motion.div 
-          className="p-6 bg-green-900 bg-opacity-50 rounded-xl shadow-lg"
-          whileHover={{ scale: 1.02 }}
-        >
-          <h3 className="font-semibold mb-3 text-green-300 text-xl">Practice Tip:</h3>
-          <p className="text-green-100 leading-relaxed">When initiating ACE inhibitors, start at a low dose and titrate up gradually while monitoring blood pressure, renal function, and potassium levels.</p>
-        </motion.div>
-      </Section>
-
-      <motion.div 
-        className="mt-12 p-8 bg-gradient-to-r from-purple-900 to-indigo-900 rounded-xl border border-purple-500 shadow-xl"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-      >
-        <h2 className="text-2xl font-bold mb-6 text-purple-300">Key Takeaways</h2>
-        <ul className="space-y-4">
+        <p className="mb-6 text-gray-700 leading-relaxed text-lg">Key clinical trials and guidelines:</p>
+        <ul className="space-y-4 mb-8">
           {[
-            { icon: Heart, text: 'ACE Inhibitors end in "-pril"' },
-            { icon: Zap, text: 'Block conversion of Angiotensin I to II in RAAS' },
-            { icon: Stethoscope, text: 'First-line for hypertension, heart failure, and diabetic nephropathy' },
-            { icon: AlertTriangle, text: 'Remember "CHAMP" for side effects' },
-            { icon: Droplet, text: 'Contraindicated in pregnancy' },
-            { icon: BookOpen, text: 'Monitor renal function and potassium levels' }
-          ].map(({ icon: Icon, text }, index) => (
+            { 
+              trial: 'HOPE Trial (2000)', 
+              detail: 'Ramipril reduced cardiovascular events in high-risk patients without left ventricular dysfunction.',
+              reference: 'N Engl J Med. 2000;342(3):145-153'
+            },
+            { 
+              trial: 'SOLVD Treatment Trial (1991)', 
+              detail: 'Enalapril reduced mortality and hospitalizations in patients with heart failure.',
+              reference: 'N Engl J Med. 1991;325(5):293-302'
+            },
+            { 
+              trial: 'ADVANCE Trial (2007)', 
+              detail: 'Perindopril-indapamide combination reduced major macro and microvascular events in type 2 diabetes.',
+              reference: 'Lancet. 2007;370(9590):829-840'
+            },
+          ].map(({ trial, detail, reference }, index) => (
             <motion.li 
               key={index} 
-              className="flex items-center text-indigo-300 text-lg"
+              className="bg-white p-4 rounded-xl shadow-md border-l-4 border-green-500"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Icon className="w-6 h-6 mr-4 text-purple-400" />
-              {text}
+              <span className="font-semibold text-green-700">{trial}: </span>
+              <span className="text-gray-700">{detail}</span>
+              <p className="text-sm text-gray-500 mt-1">Reference: {reference}</p>
+            </motion.li>
+          ))}
+        </ul>
+        <motion.div 
+          className="p-6 bg-green-50 border-2 border-green-200 rounded-xl shadow-lg"
+          whileHover={{ scale: 1.02 }}
+        >
+          <h3 className="font-semibold mb-3 text-green-800 text-xl">Clinical Practice Tip:</h3>
+          <p className="text-gray-700 leading-relaxed">When initiating ACE inhibitors, start at a low dose and titrate up gradually while monitoring blood pressure, renal function, and potassium levels. In heart failure, aim for target doses used in clinical trials for optimal benefits.</p>
+        </motion.div>
+      </Section>
+
+      <motion.div 
+        className="mt-12 p-8 bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl border border-blue-300 shadow-xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+      >
+        <h2 className="text-2xl font-bold mb-6 text-blue-800">Key Takeaways for FNP Exam</h2>
+        <ul className="space-y-4">
+          {[
+            { icon: Droplet, text: 'ACE Inhibitors end in "-pril" and work by blocking the conversion of Angiotensin I to II' },
+            { icon: Heart, text: 'First-line for hypertension, heart failure with reduced EF, and diabetic nephropathy' },
+            { icon: AlertTriangle, text: 'Key side effects: dry cough, hyperkalemia, acute kidney injury, angioedema' },
+            { icon: Stethoscope, text: 'Monitor renal function, potassium, and blood pressure regularly' },
+            { icon: BookOpen, text: 'Contraindicated in pregnancy and bilateral renal artery stenosis' },
+            { icon: Zap, text: 'Provide cardiovascular and renal protection beyond blood pressure lowering' }
+          ].map(({ icon: Icon, text }, index) => (
+            <motion.li 
+              key={index} 
+              className="flex items-start space-x-4 text-gray-800 text-lg"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Icon className="w-6 h-6 text-blue-500 mt-1 flex-shrink-0" />
+              <span>{text}</span>
             </motion.li>
           ))}
         </ul>
