@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, Heart, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap } from 'lucide-react';
+import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Section = ({ title, icon: Icon, children }) => {
@@ -12,9 +12,11 @@ const Section = ({ title, icon: Icon, children }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <button
+      <motion.button
         className="w-full text-left p-5 bg-gradient-to-r from-indigo-50 to-blue-50 hover:from-indigo-100 hover:to-blue-100 transition-colors flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
         onClick={() => setIsOpen(!isOpen)}
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
       >
         <span className="flex items-center text-lg font-semibold text-gray-800">
           <Icon className="w-6 h-6 mr-3 text-indigo-600" />
@@ -26,7 +28,7 @@ const Section = ({ title, icon: Icon, children }) => {
         >
           <ChevronDown className="w-5 h-5 text-gray-500" />
         </motion.div>
-      </button>
+      </motion.button>
       <AnimatePresence>
         {isOpen && (
           <motion.div
