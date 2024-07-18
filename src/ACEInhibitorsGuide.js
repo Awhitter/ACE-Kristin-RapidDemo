@@ -72,7 +72,7 @@ const Section = ({ title, icon: Icon, children, keyTakeaway, onComplete }) => {
 };
 
 const InteractiveDiagram = () => {
-  const [highlight, setHighlight] = useState(null);
+  const [, setHighlight] = useState(null);
 
   return (
     <motion.div
