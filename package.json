@@ -2,7 +2,7 @@
   "name": "ace-inhibitors-guide",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://awhitter.github.io/ACE-Kristin-RapidDemo/",
+  "homepage": "https://awhitter.github.io/ACE-Kristin-RapidDemo",
   "dependencies": {
     "@headlessui/react": "^2.1.2",
     "@testing-library/jest-dom": "^5.17.0",
