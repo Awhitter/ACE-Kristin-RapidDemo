@@ -52,7 +52,7 @@ const Section = ({ title, icon: Icon, children, keyTakeaway }) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 };
 
