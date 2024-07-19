@@ -25,7 +25,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build:css": "npx tailwindcss -i ./src/tailwind.css -o ./src/index.css",
-    "netlify:deploy": "npx netlify-cli deploy --prod"
+    "netlify:deploy": "netlify deploy --prod"
   },
   "eslintConfig": {
     "extends": [
