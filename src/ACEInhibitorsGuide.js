@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, PlusCircle, MinusCircle, Activity, Star, ArrowUp } from 'lucide-react';
+import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, PlusCircle, MinusCircle, Activity, Star, ArrowUp, Image } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
 
@@ -173,7 +173,8 @@ const ACEInhibitorsGuide = () => {
       dosage: '10-40 mg daily',
       halfLife: '12 hours',
       renalExcretion: '100%',
-      notes: 'Long-acting, once-daily dosing. No food interactions.'
+      notes: 'Long-acting, once-daily dosing. No food interactions.',
+      image: 'https://via.placeholder.com/150'
     },
     { 
       name: 'Enalapril', 
@@ -181,7 +182,8 @@ const ACEInhibitorsGuide = () => {
       dosage: '5-40 mg daily (can be divided)',
       halfLife: '11 hours',
       renalExcretion: '88%',
-      notes: 'Prodrug, converted to active form in liver. Can be used in pediatrics.'
+      notes: 'Prodrug, converted to active form in liver. Can be used in pediatrics.',
+      image: 'https://via.placeholder.com/150'
     },
     { 
       name: 'Ramipril', 
@@ -189,7 +191,8 @@ const ACEInhibitorsGuide = () => {
       dosage: '2.5-20 mg daily',
       halfLife: '13-17 hours',
       renalExcretion: '60%',
-      notes: 'High tissue affinity. Used in HOPE trial for cardiovascular risk reduction.'
+      notes: 'High tissue affinity. Used in HOPE trial for cardiovascular risk reduction.',
+      image: 'https://via.placeholder.com/150'
     },
     { 
       name: 'Captopril', 
@@ -197,7 +200,8 @@ const ACEInhibitorsGuide = () => {
       dosage: '25-150 mg daily (divided doses)',
       halfLife: '2 hours',
       renalExcretion: '95%',
-      notes: 'Short-acting. Take on empty stomach. Contains sulfhydryl group.'
+      notes: 'Short-acting. Take on empty stomach. Contains sulfhydryl group.',
+      image: 'https://via.placeholder.com/150'
     },
     { 
       name: 'Benazepril',
@@ -205,7 +209,8 @@ const ACEInhibitorsGuide = () => {
       dosage: '10-40 mg daily',
       halfLife: '10-11 hours',
       renalExcretion: '88%',
-      notes: 'Prodrug. High lipophilicity, good tissue penetration.'
+      notes: 'Prodrug. High lipophilicity, good tissue penetration.',
+      image: 'https://via.placeholder.com/150'
     }
   ];
 
@@ -253,12 +258,16 @@ const ACEInhibitorsGuide = () => {
               animate={{opacity: 1, y: 0}}
               transition={{duration: 0.5, delay: index * 0.1}}
             >
+              <div className="flex items-center mb-4">
+                <img src={drug.image} alt={drug.name} className="w-16 h-16 rounded-full mr-4" />
+                <span className="font-bold text-2xl">{drug.name}</span>
+              </div>
               <button
                 className="w-full text-left focus:outline-none"
                 onClick={() => setExpandedDrug(expandedDrug === drug.name ? null : drug.name)}
               >
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-2xl">{drug.name}</span>
+                  <span className="font-semibold text-xl">Details</span>
                   {expandedDrug === drug.name ? <MinusCircle size={24} /> : <PlusCircle size={24} />}
                 </div>
               </button>
