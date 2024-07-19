@@ -246,7 +246,6 @@ const ACEInhibitorsGuide = () => {
         title="Common ACE Inhibitors" 
         icon={Droplet}
         keyTakeaway="Remember the mnemonic 'LERCA-B' for key drugs: Lisinopril, Enalapril, Ramipril, Captopril, Benazepril. All ACE inhibitors end with '-pril'."
-        onComplete={updateCompletedSections}
       >
         <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key ACE Inhibitors to remember for the FNP exam (LERCA-B):</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
@@ -294,7 +293,6 @@ const ACEInhibitorsGuide = () => {
         title="Clinical Indications" 
         icon={Stethoscope}
         keyTakeaway="First-line for hypertension, heart failure with reduced EF, and diabetic nephropathy"
-        onComplete={updateCompletedSections}
       >
         <ul className="space-y-6 mb-10">
           {[
@@ -331,7 +329,6 @@ const ACEInhibitorsGuide = () => {
         title="Side Effects and Monitoring" 
         icon={AlertTriangle}
         keyTakeaway="Key side effects: dry cough, hyperkalemia, acute kidney injury, angioedema. Monitor renal function, potassium, and blood pressure regularly."
-        onComplete={updateCompletedSections}
       >
         <p className="mb-8 text-gray-700 leading-relaxed text-xl">Key side effects and monitoring parameters for ACE Inhibitors:</p>
         <ul className="space-y-6 mb-10">
