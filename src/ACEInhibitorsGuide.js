@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { ChevronDown, Droplet, AlertTriangle, Stethoscope, BookOpen, Zap, PlusCircle, MinusCircle, Activity, Star, ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const Section = ({ title, icon: Icon, children, keyTakeaway }) => {
   const [isOpen, setIsOpen] = useState(false);
